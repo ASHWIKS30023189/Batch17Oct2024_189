@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct Employee {
+    int id;
+    char name[100];
+    float salary;
+};
+
+int main(int argc, char *argv[]) {
+   
+    if (argc !=4) {
+        printf("Usage: %s <filename>\n", argv[0]);
+        return 1;
+    }
+
+    
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL) {
+        printf("Error opening file %s\n", argv[1]);
+        return 1;
+    }
+
+    
+    struct Employee employees[100];
+    int i = 0;
+
+    while (fscanf(file, "%d %s %f", &employees[i].id, employees[i].name, &employees[i].salary) != EOF) {
+        i++;
+    }
+
+    
+    fclose(file);
+
+   
+    printf("Employee Records:\n");
+    for (int j = 0; j < i; j++) {
+        printf("ID: %d, Name: %s, Salary: %.2f\n", employees[j].id, employees[j].name, employees[j].salary);
+    }
+
+    return 0;
+}
+
+
